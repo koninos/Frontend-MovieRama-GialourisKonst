@@ -7,29 +7,61 @@ export interface MoviesApiResponse {
   total_results: number;
 }
 
+export interface ReviewsApiResponse {
+  id: number;
+  page: number;
+  results: ReviewResponse[];
+  total_pages: number;
+  total_results: number;
+}
+
+export interface SimilarMoviesApiResponse {
+  page: number;
+  results: MovieResponse[];
+  total_pages: number;
+  total_results: number;
+}
+
 interface DateRangeResponse {
   minimum: string;
   maximum: string;
 }
 
 export interface MovieResponse {
-  poster_path: string;
   adult: boolean;
-  overview: string;
-  release_date: string;
+  backdrop_path: string;
   genre_ids: number[];
   id: number;
-  original_title: string;
   original_language: string;
-  title: string;
-  backdrop_path: string;
+  original_title: string;
+  overview: string;
   popularity: number;
-  vote_count: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
   video: boolean;
   vote_average: number;
+  vote_count: number;
 }
 
 export interface GenreResponse {
   id: number;
   name: string;
+}
+
+export interface ReviewResponse {
+  author: string;
+  author_details: ReviewAuthorResponse;
+  content: string;
+  created_at: string;
+  id: string;
+  updated_at: string;
+  url: string;
+}
+
+interface ReviewAuthorResponse {
+  name: string;
+  username: string;
+  avatar_path: string;
+  rating: number;
 }

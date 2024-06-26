@@ -1,10 +1,13 @@
-.movie-item {
+li {
     list-style-type: none;
+    margin-bottom: 10px;
+}
+
+.movie-item {
     display: flex;
     min-height: 90px;
     border: 1px solid #f5f5f5;
     padding: 15px 25px 15px 25px;
-    margin: 0.5rem;
 
     &:hover {
         cursor: pointer;
@@ -36,11 +39,30 @@
             color: #0000008a;
             text-align: justify;
         }
+    }
+}
 
-        .rating::before {
-            content: "★";
-            color: #d7bd62;
-            margin-right: 0.25rem;
+.movie-details {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #f5f5f5;
+    padding: 10px;
+
+    .trailer {
+        background-color: #d7bd62;
+    }
+
+    .similar-movies {
+        ul {
+            padding: 0;
+            display: flex;
+            justify-content: space-evenly;
+        }
+    }
+
+    .reviews {
+        ul {
+            padding: 0;
         }
     }
 }

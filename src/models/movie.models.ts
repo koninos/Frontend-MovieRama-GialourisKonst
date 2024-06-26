@@ -7,8 +7,16 @@ export interface Movie {
   genre: string;
   rating: number;
   posterUrl: string;
+  hasTrailer: boolean;
 }
 
 export interface Genre {
   [id: number]: string;
+}
+
+export interface Review {
+  id: string;
+  author: string;
+  rating: number;
+  content: string;
 }

@@ -1,0 +1,32 @@
+import Rating from "../../shared/rating/Rating";
+import css from "./MovieShot.module.scss";
+
+interface MovieShotProps {
+  posterUrl: string;
+  rating: number;
+  title: string;
+}
+
+function MovieShot({ posterUrl, rating, title }: MovieShotProps) {
+  // src="https://image.tmdb.org/t/p/w185/rr7E0NoGKxvbkb89eR1GwfoYjpA.jpg"
+  return (
+    <div className={css.container}>
+      <div className={css.poster}>
+        <img
+          src={`https://image.tmdb.org/t/p/w185/${posterUrl}`}
+          alt="Movie poster"
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null; // prevents looping
+            currentTarget.src = "./assets/image-not-found.jpg";
+          }}
+        />
+      </div>
+      <div className={css.rating}>
+        <Rating value={rating} />
+      </div>
+      <h5 className={css.title}>{title}</h5>
+    </div>
+  );
+}
+
+export default MovieShot;

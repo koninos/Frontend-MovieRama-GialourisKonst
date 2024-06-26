@@ -1,0 +1,9 @@
+.rating {
+    color: #0000008a;
+
+    &::before {
+        content: "★";
+        color: #d7bd62;
+        margin-right: 0.25rem;
+    }
+}

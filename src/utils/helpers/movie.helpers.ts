@@ -1,5 +1,9 @@
-import { Genre, Movie } from '../../models/movie.models';
-import { GenreResponse, MovieResponse } from '../../models/movieResponse.models';
+import { Genre, Movie, Review } from "../../models/movie.models";
+import {
+  GenreResponse,
+  MovieResponse,
+  ReviewResponse,
+} from "../../models/movieResponse.models";
 
 export const createMapOfGenres = (genres: GenreResponse[]): Genre => {
   const map = {} as Genre;
@@ -22,6 +26,7 @@ export const mapMoviesToViewModel = (
       release_date,
       vote_average: rating,
       poster_path: posterUrl,
+      video: hasTrailer,
     } = movie;
 
     return {
@@ -32,12 +37,22 @@ export const mapMoviesToViewModel = (
       genre: getGenresByIds(genres, genre_ids),
       rating,
       posterUrl,
+      hasTrailer,
     };
   });
 };
 
 const getGenresByIds = (genres: Genre, ids: number[]): string => {
   return ids.map((id) => genres[id]).join(", ");
+};
+
+export const mapReviewsToViewModel = (reviews: ReviewResponse[]): Review[] => {
+  return reviews.map(({ id, author, content, author_details: { rating } }) => ({
+    id,
+    author,
+    content,
+    rating,
+  }));
 };
 
 // To be used ONLY for Unit Testing

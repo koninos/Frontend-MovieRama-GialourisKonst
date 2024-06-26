@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import { Genre, Movie } from '../../models/movie.models';
-import { MoviesApiResponse } from '../../models/movieResponse.models';
-import { mapMoviesToViewModel } from '../../utils/helpers/movie.helpers';
-import MovieItem from '../movie-item/MovieItem';
-import css from './Movie.module.scss';
+import { Genre, Movie } from "../../models/movie.models";
+import { MoviesApiResponse } from "../../models/movieResponse.models";
+import { ACCESS_TOKEN, API } from "../../utils/API";
+import { mapMoviesToViewModel } from "../../utils/helpers/movie.helpers";
+import MovieItem from "../movie-item/MovieItem";
+import css from "./MovieList.module.scss";
 
 interface MovieListProps {
   genres: Genre;
@@ -14,26 +15,32 @@ function MovieList({ genres }: Readonly<MovieListProps>) {
   const [movies, setMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
-    const getPlayingNowMovies = async () => {
-      const response = await fetch("./dummyData/playingNow.json");
-      const apiResponse: MoviesApiResponse = await response.json();
-
-      const moviesUI: Movie[] = mapMoviesToViewModel(
-        genres,
-        apiResponse.results
-      );
-
-      setMovies(moviesUI);
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
     };
 
-    getPlayingNowMovies();
-  }, []);
+    fetch(`${API.playingNow}?page=1`, options)
+      .then((response) => response.json())
+      .then((response: MoviesApiResponse) => {
+        const moviesUI: Movie[] = mapMoviesToViewModel(
+          genres,
+          response.results
+        );
+
+        setMovies(moviesUI);
+      })
+      .catch((err) => console.error(err));
+  }, [genres]);
 
   return (
     <div className={css.list}>
       <ul>
         {movies.map((m) => (
-          <MovieItem movie={m} key={m.id} />
+          <MovieItem key={m.id} movie={m} genres={genres} />
         ))}
       </ul>
     </div>
