@@ -10,19 +10,18 @@ import css from "./MovieList.module.scss";
 interface MovieListProps {
   genres: Genre;
 }
+const options = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization: `Bearer ${ACCESS_TOKEN}`,
+  },
+};
 
 function MovieList({ genres }: Readonly<MovieListProps>) {
   const [movies, setMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${ACCESS_TOKEN}`,
-      },
-    };
-
     fetch(`${API.playingNow}?page=1`, options)
       .then((response) => response.json())
       .then((response: MoviesApiResponse) => {
@@ -40,7 +39,9 @@ function MovieList({ genres }: Readonly<MovieListProps>) {
     <div className={css.list}>
       <ul>
         {movies.map((m) => (
-          <MovieItem key={m.id} movie={m} genres={genres} />
+          <li key={m.id}>
+            <MovieItem movie={m} genres={genres} />
+          </li>
         ))}
       </ul>
     </div>

@@ -5,6 +5,7 @@ import { Genre, Movie, Review } from "../../models/movie.models";
 import {
   ReviewsApiResponse,
   SimilarMoviesApiResponse,
+  VideosApiResponse,
 } from "../../models/movieResponse.models";
 import Rating from "../../shared/rating/Rating";
 import { ACCESS_TOKEN, API, API_KEY, apiBaseUrl } from "../../utils/API";
@@ -31,38 +32,28 @@ const options = {
 };
 
 function MovieItem({ movie, genres }: Readonly<MovieItemProps>) {
-  const {
-    title,
-    releaseDate,
-    genre,
-    rating,
-    posterUrl,
-    overview,
-    hasTrailer,
-    id,
-  } = movie;
+  const { title, releaseDate, genre, rating, posterUrl, overview, id } = movie;
 
   const [showDetails, toggleShowDetails] = useToggle(false);
-  const [trailerId, setTrailerId] = useState(null);
+  const [trailerKey, setTrailerKey] = useState<string>();
   const [similarMovies, setSimilarMovies] = useState<Movie[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
 
   useEffect(() => {
-    const videoApi = `${apiBaseUrl}/movie/${id}/videos?api_key=${API_KEY}`;
+    if (showDetails) {
+      const videoApi = `${apiBaseUrl}/movie/${id}/videos?api_key=${API_KEY}`;
 
-    const getMovieTrailers = async () => {
-      const response = await fetch(videoApi);
-      const apiResponse: any = await response.json();
+      fetch(videoApi, options)
+        .then((response) => response.json())
+        .then((response: VideosApiResponse) => {
+          const trailers = response.results.filter(
+            (video) => video.type === "Trailer"
+          );
 
-      // TODO
-      // setTrailerId for movies with trailer
-      //Find a movie with trailer to check the response
-    };
-
-    if (showDetails && hasTrailer) {
-      getMovieTrailers();
+          trailers.length && setTrailerKey(trailers[0].key);
+        });
     }
-  }, [hasTrailer, id, showDetails]);
+  }, [id, showDetails]);
 
   useEffect(() => {
     if (showDetails) {
@@ -97,8 +88,8 @@ function MovieItem({ movie, genres }: Readonly<MovieItemProps>) {
   }, [showDetails, id]);
 
   return (
-    <li onClick={toggleShowDetails}>
-      <div className={css["movie-item"]}>
+    <>
+      <div className={css["movie-item"]} onClick={toggleShowDetails}>
         <div className={css.image}>
           <img
             src={`${API.posterBaseUrl}${posterUrl}`}
@@ -120,9 +111,9 @@ function MovieItem({ movie, genres }: Readonly<MovieItemProps>) {
       </div>
       {showDetails && (
         <div className={css["movie-details"]}>
-          {trailerId && (
+          {trailerKey && (
             <div className={css.trailer}>
-              <Trailer embedId={trailerId} title="Test title" />
+              <Trailer videoId={trailerKey} title="Test title" />
             </div>
           )}
           {similarMovies.length > 0 && (
@@ -161,7 +152,7 @@ function MovieItem({ movie, genres }: Readonly<MovieItemProps>) {
           )}
         </div>
       )}
-    </li>
+    </>
   );
 }
 

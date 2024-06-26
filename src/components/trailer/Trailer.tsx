@@ -1,17 +1,20 @@
-import css from './Trailer.module.scss';
+import css from "./Trailer.module.scss";
 
 interface TrailerProps {
-  embedId: string;
+  videoId: string;
   title: string;
 }
 
-const Trailer = ({ embedId, title }: TrailerProps) => {
+const Trailer = ({ videoId, title }: TrailerProps) => {
   const altTitle = `Trailer of ${title}`;
+
   return (
     <div className={css["video-container"]}>
       <iframe
-        src={`https://www.youtube.com/embed/${embedId}`}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        width="100%"
+        height="100%"
+        src={`https://www.youtube.com/embed/${videoId}`}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
         title={altTitle}
       />

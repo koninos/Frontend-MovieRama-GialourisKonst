@@ -22,6 +22,24 @@ export interface SimilarMoviesApiResponse {
   total_results: number;
 }
 
+export interface VideosApiResponse {
+  id: number;
+  results: VideoResponse[];
+}
+
+interface VideoResponse {
+  id: string;
+  iso_639_1: string;
+  iso_3166_1: string;
+  key: string;
+  name: string;
+  official: boolean;
+  published_at: string;
+  site: string;
+  size: number;
+  type: string;
+}
+
 interface DateRangeResponse {
   minimum: string;
   maximum: string;
@@ -39,7 +57,6 @@ export interface MovieResponse {
   poster_path: string;
   release_date: string;
   title: string;
-  video: boolean;
   vote_average: number;
   vote_count: number;
 }

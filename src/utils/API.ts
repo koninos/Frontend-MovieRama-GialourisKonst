@@ -9,3 +9,5 @@ export const API = {
   playingNow: `${apiBaseUrl}/movie/now_playing`,
   posterBaseUrl: `https://image.tmdb.org/t/p/original`,
 };
+
+export const youtubeAPI = "https://www.youtube.com/watch?v=";

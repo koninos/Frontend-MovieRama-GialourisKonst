@@ -26,7 +26,6 @@ export const mapMoviesToViewModel = (
       release_date,
       vote_average: rating,
       poster_path: posterUrl,
-      video: hasTrailer,
     } = movie;
 
     return {
@@ -37,7 +36,6 @@ export const mapMoviesToViewModel = (
       genre: getGenresByIds(genres, genre_ids),
       rating,
       posterUrl,
-      hasTrailer,
     };
   });
 };

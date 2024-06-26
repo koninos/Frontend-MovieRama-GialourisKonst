@@ -47,9 +47,11 @@ li {
     flex-direction: column;
     border: 1px solid #f5f5f5;
     padding: 10px;
+    justify-content: center;
 
     .trailer {
-        background-color: #d7bd62;
+        width: 70%;
+        align-self: center;
     }
 
     .similar-movies {
@@ -61,6 +63,8 @@ li {
     }
 
     .reviews {
+        margin: 2rem;
+
         ul {
             padding: 0;
         }
