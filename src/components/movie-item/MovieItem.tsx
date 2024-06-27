@@ -103,7 +103,7 @@ function MovieItem({ movie, genres }: Readonly<MovieItemProps>) {
         </div>
         <article className={css.info}>
           <h3>{title}</h3>
-          <p>{releaseDate}</p>
+          <p>{isNaN(releaseDate) ? "" : releaseDate}</p>
           <p>{genre}</p>
           <Rating value={rating} />
           <p>{overview}</p>

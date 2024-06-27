@@ -9,32 +9,10 @@ import css from "./MovieList.module.scss";
 
 interface MovieListProps {
   genres: Genre;
+  movies: Movie[];
 }
-const options = {
-  method: "GET",
-  headers: {
-    accept: "application/json",
-    Authorization: `Bearer ${ACCESS_TOKEN}`,
-  },
-};
 
-function MovieList({ genres }: Readonly<MovieListProps>) {
-  const [movies, setMovies] = useState<Movie[]>([]);
-
-  useEffect(() => {
-    fetch(`${API.playingNow}?page=1`, options)
-      .then((response) => response.json())
-      .then((response: MoviesApiResponse) => {
-        const moviesUI: Movie[] = mapMoviesToViewModel(
-          genres,
-          response.results
-        );
-
-        setMovies(moviesUI);
-      })
-      .catch((err) => console.error(err));
-  }, [genres]);
-
+function MovieList({ genres, movies }: Readonly<MovieListProps>) {
   return (
     <div className={css.list}>
       <ul>

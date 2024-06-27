@@ -8,6 +8,7 @@ export const API = {
   genre: `${apiBaseUrl}/genre/movie/list`,
   playingNow: `${apiBaseUrl}/movie/now_playing`,
   posterBaseUrl: `https://image.tmdb.org/t/p/original`,
+  searchMovie: `${apiBaseUrl}/search/movie`,
 };
 
 export const youtubeAPI = "https://www.youtube.com/watch?v=";
