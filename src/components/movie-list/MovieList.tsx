@@ -8,17 +8,16 @@ import MovieItem from "../movie-item/MovieItem";
 import css from "./MovieList.module.scss";
 
 interface MovieListProps {
-  genres: Genre;
   movies: Movie[];
 }
 
-function MovieList({ genres, movies }: Readonly<MovieListProps>) {
+function MovieList({ movies }: Readonly<MovieListProps>) {
   return (
     <div className={css.list}>
       <ul>
         {movies.map((m) => (
           <li key={m.id}>
-            <MovieItem movie={m} genres={genres} />
+            <MovieItem movie={m} />
           </li>
         ))}
       </ul>

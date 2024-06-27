@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import css from "./App.module.scss";
 import MovieList from "./components/movie-list/MovieList";
+import { GenresContext } from "./context/GenresContext";
 import useDebounce from "./hooks/useDebounce";
 import { Genre, Movie } from "./models/movie.models";
 import {
@@ -69,7 +70,9 @@ function App() {
 
       <main className={css.container}>
         <SearchBar onChange={setSearchValue} />
-        <MovieList genres={genres} movies={movies} />
+        <GenresContext.Provider value={genres}>
+          <MovieList movies={movies} />
+        </GenresContext.Provider>
       </main>
     </div>
   );

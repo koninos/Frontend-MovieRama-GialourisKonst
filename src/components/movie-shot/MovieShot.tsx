@@ -8,7 +8,6 @@ interface MovieShotProps {
 }
 
 function MovieShot({ posterUrl, rating, title }: MovieShotProps) {
-  // src="https://image.tmdb.org/t/p/w185/rr7E0NoGKxvbkb89eR1GwfoYjpA.jpg"
   return (
     <div className={css.container}>
       <div className={css.poster}>

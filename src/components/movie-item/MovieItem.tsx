@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
+import { GenresContext } from "../../context/GenresContext";
 import useToggle from "../../hooks/useToggle";
-import { Genre, Movie, Review } from "../../models/movie.models";
+import { Movie, Review } from "../../models/movie.models";
 import {
   ReviewsApiResponse,
   SimilarMoviesApiResponse,
@@ -20,7 +21,6 @@ import css from "./MovieItem.module.scss";
 
 interface MovieItemProps {
   movie: Movie;
-  genres: Genre; // TODO remove after context
 }
 
 const options = {
@@ -31,13 +31,14 @@ const options = {
   },
 };
 
-function MovieItem({ movie, genres }: Readonly<MovieItemProps>) {
+function MovieItem({ movie }: Readonly<MovieItemProps>) {
   const { title, releaseDate, genre, rating, posterUrl, overview, id } = movie;
 
   const [showDetails, toggleShowDetails] = useToggle(false);
   const [trailerKey, setTrailerKey] = useState<string>();
   const [similarMovies, setSimilarMovies] = useState<Movie[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
+  const genres = useContext(GenresContext);
 
   useEffect(() => {
     if (showDetails) {
@@ -60,7 +61,6 @@ function MovieItem({ movie, genres }: Readonly<MovieItemProps>) {
       fetch(`${apiBaseUrl}/movie/${id}/similar?page=1`, options)
         .then((response) => response.json())
         .then((response: SimilarMoviesApiResponse) => {
-          //TODO use context for genre
           const moviesUI: Movie[] = mapMoviesToViewModel(
             genres,
             response.results
