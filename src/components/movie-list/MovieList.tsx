@@ -1,9 +1,6 @@
-import { useEffect, useState } from "react";
+import { forwardRef } from "react";
 
-import { Genre, Movie } from "../../models/movie.models";
-import { MoviesApiResponse } from "../../models/movieResponse.models";
-import { ACCESS_TOKEN, API } from "../../utils/API";
-import { mapMoviesToViewModel } from "../../utils/helpers/movie.helpers";
+import { Movie } from "../../models/movie.models";
 import MovieItem from "../movie-item/MovieItem";
 import css from "./MovieList.module.scss";
 
@@ -11,18 +8,25 @@ interface MovieListProps {
   movies: Movie[];
 }
 
-function MovieList({ movies }: Readonly<MovieListProps>) {
+const MovieList = forwardRef(function MovieList(
+  { movies }: Readonly<MovieListProps>,
+  ref
+) {
   return (
     <div className={css.list}>
       <ul>
-        {movies.map((m) => (
+        {movies.map((m, idx) => (
           <li key={m.id}>
-            <MovieItem movie={m} />
+            <MovieItem
+              movie={m}
+              isLastMovieInPage={movies.length === idx + 1}
+              ref={ref}
+            />
           </li>
         ))}
       </ul>
     </div>
   );
-}
+});
 
 export default MovieList;

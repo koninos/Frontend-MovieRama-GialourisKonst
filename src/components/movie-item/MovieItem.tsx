@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { forwardRef, useContext, useEffect, useState } from "react";
 
 import { GenresContext } from "../../context/GenresContext";
 import useToggle from "../../hooks/useToggle";
@@ -19,6 +19,7 @@ import css from "./MovieItem.module.scss";
 
 interface MovieItemProps {
   movie: Movie;
+  isLastMovieInPage: boolean;
 }
 
 const options = {
@@ -29,7 +30,10 @@ const options = {
   },
 };
 
-function MovieItem({ movie }: Readonly<MovieItemProps>) {
+const MovieItem = forwardRef(function MovieItem(
+  { movie, isLastMovieInPage }: Readonly<MovieItemProps>,
+  ref: any
+) {
   const { title, releaseDate, genre, rating, posterUrl, overview, id } = movie;
 
   const [showDetails, toggleShowDetails] = useToggle(false);
@@ -87,7 +91,11 @@ function MovieItem({ movie }: Readonly<MovieItemProps>) {
 
   return (
     <>
-      <div className={css["movie-item"]} onClick={toggleShowDetails}>
+      <div
+        className={css["movie-item"]}
+        onClick={toggleShowDetails}
+        ref={isLastMovieInPage ? ref : null}
+      >
         <div className={css.image}>
           <img
             src={`${API.posterBaseUrl}${posterUrl}`}
@@ -117,6 +125,6 @@ function MovieItem({ movie }: Readonly<MovieItemProps>) {
       )}
     </>
   );
-}
+});
 
 export default MovieItem;

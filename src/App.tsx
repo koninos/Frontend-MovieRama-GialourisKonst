@@ -1,77 +1,54 @@
-import { useEffect, useState } from "react";
+import { useCallback, useRef } from "react";
 
 import css from "./App.module.scss";
 import MovieList from "./components/movie-list/MovieList";
 import { GenresContext } from "./context/GenresContext";
-import useDebounce from "./hooks/useDebounce";
-import { Genre, Movie } from "./models/movie.models";
-import {
-  GenreResponse,
-  MoviesApiResponse,
-} from "./models/movieResponse.models";
+import useMovies from "./hooks/useMovies";
 import SearchBar from "./shared/search-bar/SearchBar";
-import { ACCESS_TOKEN, API, API_KEY } from "./utils/API";
-import {
-  createMapOfGenres,
-  mapMoviesToViewModel,
-} from "./utils/helpers/movie.helpers";
 
-const options = {
-  method: "GET",
-  headers: {
-    accept: "application/json",
-    Authorization: `Bearer ${ACCESS_TOKEN}`,
-  },
-};
+export interface Search {
+  term: string;
+  page: number;
+}
 
 function App() {
-  const [genres, setGenres] = useState<Genre>({});
-  const [searchValue, setSearchValue] = useState("");
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const debouncedSearch = useDebounce(searchValue);
+  const { isLoading, error, genres, movies, setSearch, loadMoreMovies, term } =
+    useMovies();
 
-  useEffect(() => {
-    const getData = async () => {
-      const moviesApiUrl = !debouncedSearch
-        ? `${API.playingNow}?page=1`
-        : `${API.searchMovie}?query=${debouncedSearch}&page=1`;
-
-      const responses = await Promise.all([
-        fetch(`${API.genre}?api_key=${API_KEY}`),
-        fetch(moviesApiUrl, options),
-      ]);
-
-      const { genres }: { genres: GenreResponse[] } = await responses[0].json();
-      const moviesResponse: MoviesApiResponse = await responses[1].json();
-
-      const mappedGenres = createMapOfGenres(genres);
-      setGenres(mappedGenres);
-
-      const moviesUI: Movie[] = mapMoviesToViewModel(
-        mappedGenres,
-        moviesResponse.results
-      );
-
-      setMovies(moviesUI);
-    };
-
-    getData();
-  }, [debouncedSearch]);
+  const observer = useRef<IntersectionObserver | null>(null);
+  const lastMovieElemRef = useCallback(
+    (node: Element) => {
+      if (isLoading) {
+        return;
+      }
+      if (observer.current) {
+        observer.current.disconnect();
+      }
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          loadMoreMovies();
+        }
+      });
+      if (node) {
+        observer.current.observe(node);
+      }
+    },
+    [isLoading, loadMoreMovies]
+  );
 
   return (
     <div className={css["app-shell"]}>
       <header className={css.heading}>
-        <h1>
-          {!debouncedSearch
-            ? "Playing now in theaters"
-            : `Search results for: ${debouncedSearch}`}
-        </h1>
+        <h1>{!term ? "Playing now in theaters" : `Results for: ${term}`}</h1>
+
+        {error && <p>Error</p>}
       </header>
 
       <main className={css.container}>
-        <SearchBar onChange={setSearchValue} />
+        <SearchBar onChange={setSearch} />
+        {isLoading && <p>Loading...</p>}
         <GenresContext.Provider value={genres}>
-          <MovieList movies={movies} />
+          <MovieList movies={movies} ref={lastMovieElemRef} />
         </GenresContext.Provider>
       </main>
     </div>
