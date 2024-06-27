@@ -1,8 +1,7 @@
-import { useCallback, useRef } from "react";
-
 import css from "./App.module.scss";
 import MovieList from "./components/movie-list/MovieList";
 import { GenresContext } from "./context/GenresContext";
+import useInfiniteScroll from "./hooks/useInfiniteScroll";
 import useMovies from "./hooks/useMovies";
 import SearchBar from "./shared/search-bar/SearchBar";
 
@@ -12,28 +11,12 @@ export interface Search {
 }
 
 function App() {
-  const { isLoading, error, genres, movies, setSearch, loadMoreMovies, term } =
+  const { isLoading, error, genres, movies, setSearch, term, loadMoreMovies } =
     useMovies();
 
-  const observer = useRef<IntersectionObserver | null>(null);
-  const lastMovieElemRef = useCallback(
-    (node: Element) => {
-      if (isLoading) {
-        return;
-      }
-      if (observer.current) {
-        observer.current.disconnect();
-      }
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          loadMoreMovies();
-        }
-      });
-      if (node) {
-        observer.current.observe(node);
-      }
-    },
-    [isLoading, loadMoreMovies]
+  const { ref: lastMovieElemRef } = useInfiniteScroll(
+    isLoading,
+    loadMoreMovies
   );
 
   return (
