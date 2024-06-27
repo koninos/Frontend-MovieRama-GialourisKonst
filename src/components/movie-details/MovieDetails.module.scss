@@ -1,0 +1,28 @@
+.movie-details {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #f5f5f5;
+    padding: 10px;
+    justify-content: center;
+
+    .trailer {
+        width: 70%;
+        align-self: center;
+    }
+
+    .similar-movies {
+        ul {
+            padding: 0;
+            display: flex;
+            justify-content: space-evenly;
+        }
+    }
+
+    .reviews {
+        margin: 2rem;
+
+        ul {
+            padding: 0;
+        }
+    }
+}

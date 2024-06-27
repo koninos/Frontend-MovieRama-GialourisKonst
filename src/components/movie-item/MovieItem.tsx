@@ -14,9 +14,7 @@ import {
   mapMoviesToViewModel,
   mapReviewsToViewModel,
 } from "../../utils/helpers/movie.helpers";
-import MovieShot from "../movie-shot/MovieShot";
-import ReviewComponent from "../review/Review";
-import Trailer from "../trailer/Trailer";
+import MovieDetails from "../movie-details/MovieDetails";
 import css from "./MovieItem.module.scss";
 
 interface MovieItemProps {
@@ -35,7 +33,7 @@ function MovieItem({ movie }: Readonly<MovieItemProps>) {
   const { title, releaseDate, genre, rating, posterUrl, overview, id } = movie;
 
   const [showDetails, toggleShowDetails] = useToggle(false);
-  const [trailerKey, setTrailerKey] = useState<string>();
+  const [trailerKey, setTrailerKey] = useState<string>("");
   const [similarMovies, setSimilarMovies] = useState<Movie[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
   const genres = useContext(GenresContext);
@@ -110,47 +108,12 @@ function MovieItem({ movie }: Readonly<MovieItemProps>) {
         </article>
       </div>
       {showDetails && (
-        <div className={css["movie-details"]}>
-          {trailerKey && (
-            <div className={css.trailer}>
-              <Trailer videoId={trailerKey} title="Test title" />
-            </div>
-          )}
-          {similarMovies.length > 0 && (
-            <div className={css["similar-movies"]}>
-              <h3>Similar movies</h3>
-              <ul>
-                {/* //TODO Display just first 5 */}
-                {similarMovies.slice(0, 5).map((m) => (
-                  <li key={m.id}>
-                    <MovieShot
-                      posterUrl={m.posterUrl}
-                      rating={m.rating}
-                      title={m.title}
-                    />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          {reviews && (
-            <div className={css.reviews}>
-              <ul>
-                {reviews.map((r) => {
-                  return (
-                    <li key={r.id}>
-                      <ReviewComponent
-                        author={r.author}
-                        rating={r.rating}
-                        content={r.content}
-                      />
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          )}
-        </div>
+        <MovieDetails
+          title={title}
+          reviews={reviews}
+          similarMovies={similarMovies}
+          trailerKey={trailerKey}
+        />
       )}
     </>
   );
