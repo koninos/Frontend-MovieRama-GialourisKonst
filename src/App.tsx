@@ -1,16 +1,11 @@
 import css from "./App.module.scss";
-import MovieList from "./components/movie-list/MovieList";
+import { MovieList } from "./components/movie-list/MovieList";
 import { GenresContext } from "./context/GenresContext";
-import useInfiniteScroll from "./hooks/useInfiniteScroll";
-import useMovies from "./hooks/useMovies";
-import SearchBar from "./shared/search-bar/SearchBar";
+import { useInfiniteScroll } from "./hooks/useInfiniteScroll";
+import { useMovies } from "./hooks/useMovies";
+import { SearchBar } from "./shared/search-bar/SearchBar";
 
-export interface Search {
-  term: string;
-  page: number;
-}
-
-function App() {
+export const App = () => {
   const { isLoading, error, genres, movies, setSearch, term, loadMoreMovies } =
     useMovies();
 
@@ -36,6 +31,4 @@ function App() {
       </main>
     </div>
   );
-}
-
-export default App;
+};

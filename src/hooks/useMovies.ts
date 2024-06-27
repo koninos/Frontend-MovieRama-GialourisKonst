@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { Search } from "../App";
-import { Genre, Movie } from "../models/movie.models";
+import { Genre, Movie, Search } from "../models/movie.models";
 import {
   GenreResponse,
   MoviesApiResponse,
@@ -11,7 +10,7 @@ import {
   createMapOfGenres,
   mapMoviesToViewModel,
 } from "../utils/helpers/movie.helpers";
-import useDebounce from "./useDebounce";
+import { useDebounce } from "./useDebounce";
 
 const options = {
   method: "GET",
@@ -21,7 +20,7 @@ const options = {
   },
 };
 
-export default function useMovies() {
+export const useMovies = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [genres, setGenres] = useState<Genre>({});
@@ -91,4 +90,4 @@ export default function useMovies() {
     setSearch,
     term: search.term,
   };
-}
+};

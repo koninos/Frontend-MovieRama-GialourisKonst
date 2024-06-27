@@ -1,6 +1,6 @@
 import { Movie, Review } from "../../models/movie.models";
-import MovieShot from "../movie-shot/MovieShot";
-import ReviewComponent from "../review/Review";
+import { MovieShot } from "../movie-shot/MovieShot";
+import { Review as ReviewComponent } from "../review/Review";
 import Trailer from "../trailer/Trailer";
 import css from "./MovieDetails.module.scss";
 
@@ -11,12 +11,12 @@ interface MovieDetailsProps {
   reviews: Review[];
 }
 
-function MovieDetails({
+export const MovieDetails = ({
   title,
   trailerKey,
   similarMovies,
   reviews,
-}: MovieDetailsProps) {
+}: MovieDetailsProps) => {
   return (
     <div className={css["movie-details"]}>
       {trailerKey && (
@@ -60,6 +60,4 @@ function MovieDetails({
       )}
     </div>
   );
-}
-
-export default MovieDetails;
+};

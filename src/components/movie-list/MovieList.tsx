@@ -1,14 +1,14 @@
 import { forwardRef } from "react";
 
 import { Movie } from "../../models/movie.models";
-import MovieItem from "../movie-item/MovieItem";
+import { MovieItem } from "../movie-item/MovieItem";
 import css from "./MovieList.module.scss";
 
 interface MovieListProps {
   movies: Movie[];
 }
 
-const MovieList = forwardRef(function MovieList(
+export const MovieList = forwardRef(function MovieList(
   { movies }: Readonly<MovieListProps>,
   ref
 ) {
@@ -28,5 +28,3 @@ const MovieList = forwardRef(function MovieList(
     </div>
   );
 });
-
-export default MovieList;

@@ -1,4 +1,4 @@
-import Rating from "../../shared/rating/Rating";
+import { Rating } from "../../shared/rating/Rating";
 import css from "./MovieShot.module.scss";
 
 interface MovieShotProps {
@@ -7,7 +7,7 @@ interface MovieShotProps {
   title: string;
 }
 
-function MovieShot({ posterUrl, rating, title }: MovieShotProps) {
+export const MovieShot = ({ posterUrl, rating, title }: MovieShotProps) => {
   return (
     <div className={css.container}>
       <div className={css.poster}>
@@ -26,6 +26,4 @@ function MovieShot({ posterUrl, rating, title }: MovieShotProps) {
       <h5 className={css.title}>{title}</h5>
     </div>
   );
-}
-
-export default MovieShot;
+};

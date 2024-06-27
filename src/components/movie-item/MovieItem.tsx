@@ -1,20 +1,20 @@
 import { forwardRef, useContext, useEffect, useState } from "react";
 
 import { GenresContext } from "../../context/GenresContext";
-import useToggle from "../../hooks/useToggle";
+import { useToggle } from "../../hooks/useToggle";
 import { Movie, Review } from "../../models/movie.models";
 import {
   ReviewsApiResponse,
   SimilarMoviesApiResponse,
   VideosApiResponse,
 } from "../../models/movieResponse.models";
-import Rating from "../../shared/rating/Rating";
+import { Rating } from "../../shared/rating/Rating";
 import { ACCESS_TOKEN, API, API_KEY, apiBaseUrl } from "../../utils/API";
 import {
   mapMoviesToViewModel,
   mapReviewsToViewModel,
 } from "../../utils/helpers/movie.helpers";
-import MovieDetails from "../movie-details/MovieDetails";
+import { MovieDetails } from "../movie-details/MovieDetails";
 import css from "./MovieItem.module.scss";
 
 interface MovieItemProps {
@@ -30,7 +30,7 @@ const options = {
   },
 };
 
-const MovieItem = forwardRef(function MovieItem(
+export const MovieItem = forwardRef(function MovieItem(
   { movie, isLastMovieInPage }: Readonly<MovieItemProps>,
   ref: any
 ) {
@@ -126,5 +126,3 @@ const MovieItem = forwardRef(function MovieItem(
     </>
   );
 });
-
-export default MovieItem;

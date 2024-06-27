@@ -1,11 +1,11 @@
-import { Search } from "../../App";
+import { Search } from "../../models/movie.models";
 import css from "./SearchBar.module.scss";
 
 interface SearchBarProps {
   onChange: (value: Search) => void;
 }
 
-function SearchBar({ onChange }: SearchBarProps) {
+export const SearchBar = ({ onChange }: SearchBarProps) => {
   return (
     <input
       className={css.search}
@@ -19,6 +19,4 @@ function SearchBar({ onChange }: SearchBarProps) {
       }
     />
   );
-}
-
-export default SearchBar;
+};

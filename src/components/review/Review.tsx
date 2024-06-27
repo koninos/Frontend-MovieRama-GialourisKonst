@@ -1,5 +1,5 @@
-import Rating from '../../shared/rating/Rating';
-import css from './Review.module.scss';
+import { Rating } from "../../shared/rating/Rating";
+import css from "./Review.module.scss";
 
 interface ReviewProps {
   author: string;
@@ -7,7 +7,7 @@ interface ReviewProps {
   content: string;
 }
 
-const Review = ({ author, content, rating }: ReviewProps) => {
+export const Review = ({ author, content, rating }: ReviewProps) => {
   return (
     <div className={css.review}>
       <div className={css["user-rating"]}>
@@ -23,5 +23,3 @@ const Review = ({ author, content, rating }: ReviewProps) => {
     </div>
   );
 };
-
-export default Review;

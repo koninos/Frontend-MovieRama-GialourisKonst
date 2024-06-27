@@ -19,3 +19,8 @@ export interface Review {
   rating: number;
   content: string;
 }
+
+export interface Search {
+  term: string;
+  page: number;
+}
