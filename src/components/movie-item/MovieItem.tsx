@@ -33,7 +33,7 @@ export const MovieItem = forwardRef(function MovieItem(
             alt={`Movie poster ${title}`}
             onError={({ currentTarget }) => {
               currentTarget.onerror = null; // prevents looping
-              currentTarget.src = "./assets/image-not-found.jpg";
+              currentTarget.src = "./assets/image-not-found.webp";
               currentTarget.alt = "Poster not found";
             }}
           />

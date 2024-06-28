@@ -16,7 +16,7 @@ export const MovieShot = ({ posterUrl, rating, title }: MovieShotProps) => {
           alt="Movie poster"
           onError={({ currentTarget }) => {
             currentTarget.onerror = null; // prevents looping
-            currentTarget.src = "./assets/image-not-found.jpg";
+            currentTarget.src = "./assets/image-not-found.webp";
           }}
         />
       </div>
