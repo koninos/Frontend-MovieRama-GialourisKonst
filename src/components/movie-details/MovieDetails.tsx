@@ -1,63 +1,69 @@
-import { Movie, Review } from "../../models/movie.models";
+import { useMovieReviews } from "../../hooks/useMovieReviews";
+import { useMovieTrailers } from "../../hooks/useMovieTrailers";
+import { useSimilarMovies } from "../../hooks/useSimilarMovies";
 import { MovieShot } from "../movie-shot/MovieShot";
 import { Review as ReviewComponent } from "../review/Review";
 import Trailer from "../trailer/Trailer";
 import css from "./MovieDetails.module.scss";
 
 interface MovieDetailsProps {
+  id: number;
   title: string;
-  trailerKey: string;
-  similarMovies: Movie[];
-  reviews: Review[];
 }
 
-export const MovieDetails = ({
-  title,
-  trailerKey,
-  similarMovies,
-  reviews,
-}: MovieDetailsProps) => {
+export const MovieDetails = ({ id, title }: MovieDetailsProps) => {
+  const { trailerKey } = useMovieTrailers(id);
+  const { similarMovies } = useSimilarMovies(id);
+  const { reviews } = useMovieReviews(id);
+
+  const showDetails =
+    trailerKey || similarMovies.length > 0 || reviews.length > 0;
+
   return (
-    <div className={css["movie-details"]}>
-      {trailerKey && (
-        <div className={css.trailer}>
-          <Trailer videoId={trailerKey} title={title} />
+    <>
+      {showDetails && (
+        <div className={css["movie-details"]}>
+          {trailerKey && (
+            <div className={css.trailer}>
+              <Trailer videoId={trailerKey} title={title} />
+            </div>
+          )}
+          {similarMovies.length > 0 && (
+            <div className={css["similar-movies"]}>
+              <h3>Similar movies</h3>
+              <ul>
+                {/* //TODO Display just first 5 */}
+                {similarMovies.slice(0, 5).map((m) => (
+                  <li key={m.id}>
+                    <MovieShot
+                      posterUrl={m.posterUrl}
+                      rating={m.rating}
+                      title={m.title}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {reviews.length > 0 && (
+            <div className={css.reviews}>
+              <ul>
+                {reviews.map((r) => {
+                  return (
+                    <li key={r.id}>
+                      <ReviewComponent
+                        author={r.author}
+                        rating={r.rating}
+                        content={r.content}
+                      />
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
         </div>
       )}
-      {similarMovies.length > 0 && (
-        <div className={css["similar-movies"]}>
-          <h3>Similar movies</h3>
-          <ul>
-            {/* //TODO Display just first 5 */}
-            {similarMovies.slice(0, 5).map((m) => (
-              <li key={m.id}>
-                <MovieShot
-                  posterUrl={m.posterUrl}
-                  rating={m.rating}
-                  title={m.title}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-      {reviews.length > 0 && (
-        <div className={css.reviews}>
-          <ul>
-            {reviews.map((r) => {
-              return (
-                <li key={r.id}>
-                  <ReviewComponent
-                    author={r.author}
-                    rating={r.rating}
-                    content={r.content}
-                  />
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      )}
-    </div>
+    </>
   );
 };

@@ -12,3 +12,11 @@ export const API = {
 };
 
 export const youtubeAPI = "https://www.youtube.com/watch?v=";
+
+export const GET_API_OPTIONS = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization: `Bearer ${ACCESS_TOKEN}`,
+  },
+};

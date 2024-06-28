@@ -5,20 +5,12 @@ import {
   GenreResponse,
   MoviesApiResponse,
 } from "../models/movieResponse.models";
-import { ACCESS_TOKEN, API, API_KEY } from "../utils/API";
+import { API, API_KEY, GET_API_OPTIONS } from "../utils/API";
 import {
   createMapOfGenres,
   mapMoviesToViewModel,
 } from "../utils/helpers/movie.helpers";
 import { useDebounce } from "./useDebounce";
-
-const options = {
-  method: "GET",
-  headers: {
-    accept: "application/json",
-    Authorization: `Bearer ${ACCESS_TOKEN}`,
-  },
-};
 
 export const useMovies = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -42,7 +34,7 @@ export const useMovies = () => {
 
         const responses = await Promise.all([
           fetch(`${API.genre}?api_key=${API_KEY}`),
-          fetch(moviesApiUrl, options),
+          fetch(moviesApiUrl, GET_API_OPTIONS),
         ]);
 
         const { genres }: { genres: GenreResponse[] } =
