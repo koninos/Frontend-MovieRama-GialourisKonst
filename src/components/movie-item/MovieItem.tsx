@@ -27,17 +27,16 @@ export const MovieItem = forwardRef(function MovieItem(
         onClick={toggleShowDetails}
         ref={isLastMovieInPage ? ref : null}
       >
-        <div className={css.image}>
-          <img
-            src={`${API.posterBaseUrl}${posterUrl}`}
-            alt={`Movie poster ${title}`}
-            onError={({ currentTarget }) => {
-              currentTarget.onerror = null; // prevents looping
-              currentTarget.src = "./assets/image-not-found.webp";
-              currentTarget.alt = "Poster not found";
-            }}
-          />
-        </div>
+        <img
+          src={`${API.posterBaseUrl}${posterUrl}`}
+          alt={`Movie poster ${title}`}
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null; // prevents looping
+            currentTarget.src = "./assets/image-not-found.webp";
+            currentTarget.alt = "Poster not found";
+          }}
+        />
+
         <article className={css.info}>
           <h3>{title}</h3>
           <p>{isNaN(releaseDate) ? "" : releaseDate}</p>
