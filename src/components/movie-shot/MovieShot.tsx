@@ -10,19 +10,16 @@ interface MovieShotProps {
 export const MovieShot = ({ posterUrl, rating, title }: MovieShotProps) => {
   return (
     <div className={css.container}>
-      <div className={css.poster}>
-        <img
-          src={`https://image.tmdb.org/t/p/w185/${posterUrl}`}
-          alt="Movie poster"
-          onError={({ currentTarget }) => {
-            currentTarget.onerror = null; // prevents looping
-            currentTarget.src = "./assets/image-not-found.webp";
-          }}
-        />
-      </div>
-      <div className={css.rating}>
-        <Rating value={rating} />
-      </div>
+      <img
+        src={`https://image.tmdb.org/t/p/w185/${posterUrl}`}
+        alt="Movie poster"
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src = "./assets/image-not-found.webp";
+        }}
+      />
+
+      <Rating value={rating} />
       <h5 className={css.title}>{title}</h5>
     </div>
   );
