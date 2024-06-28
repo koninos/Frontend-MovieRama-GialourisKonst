@@ -1,34 +1,15 @@
 import css from "./App.module.scss";
-import { MovieList } from "./components/movie-list/MovieList";
-import { GenresContext } from "./context/GenresContext";
-import { useInfiniteScroll } from "./hooks/useInfiniteScroll";
-import { useMovies } from "./hooks/useMovies";
-import { SearchBar } from "./shared/search-bar/SearchBar";
-import { Spinner } from "./shared/spinner/Spinner";
+import { MovieContainer } from "./components/movie-container/MovieContainer";
 
 export const App = () => {
-  const { isLoading, error, genres, movies, setSearch, term, loadMoreMovies } =
-    useMovies();
-
-  const { ref: lastMovieElemRef } = useInfiniteScroll(
-    isLoading,
-    loadMoreMovies
-  );
-
   return (
     <div className={css["app-shell"]}>
       <header className={css.heading}>
-        <h1>{!term ? "Playing now in theaters" : `Results for: ${term}`}</h1>
-
-        {error && <p>Error</p>}
+        <h1>MovieRama</h1>
       </header>
 
       <main className={css.container}>
-        <SearchBar onChange={setSearch} />
-        {isLoading && <Spinner />}
-        <GenresContext.Provider value={genres}>
-          <MovieList movies={movies} ref={lastMovieElemRef} />
-        </GenresContext.Provider>
+        <MovieContainer />
       </main>
     </div>
   );
