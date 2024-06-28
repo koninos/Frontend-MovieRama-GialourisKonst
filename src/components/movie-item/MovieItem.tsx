@@ -22,7 +22,7 @@ export const MovieItem = forwardRef(function MovieItem(
 
   return (
     <>
-      <div
+      <section
         className={css["movie-item"]}
         onClick={toggleShowDetails}
         ref={isLastMovieInPage ? ref : null}
@@ -41,12 +41,14 @@ export const MovieItem = forwardRef(function MovieItem(
 
         <article className={css.info}>
           <h3>{title}</h3>
-          <p>{isNaN(releaseDate) ? "" : releaseDate}</p>
-          <p>{genre}</p>
+          <time className={css.content}>
+            {isNaN(releaseDate) ? "" : releaseDate}
+          </time>
+          <p className={css.content}>{genre}</p>
           <Rating value={rating} />
-          <p>{overview}</p>
+          <p className={css.content}>{overview}</p>
         </article>
-      </div>
+      </section>
       {showDetails && <MovieDetails id={id} title={title} />}
     </>
   );

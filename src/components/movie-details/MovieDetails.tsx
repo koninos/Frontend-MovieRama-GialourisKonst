@@ -22,15 +22,15 @@ export const MovieDetails = ({ id, title }: MovieDetailsProps) => {
 
   return (
     <>
-      <div className={css["movie-details"]}>
+      <section className={css["movie-details"]}>
         {!contentLoaded && <Spinner />}
         {trailerKey && (
-          <div className={css.trailer}>
+          <section className={css.trailer}>
             <Trailer videoId={trailerKey} title={title} />
-          </div>
+          </section>
         )}
         {similarMovies.length > 0 && (
-          <div className={css["similar-movies"]}>
+          <section className={css["similar-movies"]}>
             <h3>Similar movies</h3>
             <ul>
               {/* //TODO Display just first 5 */}
@@ -44,10 +44,10 @@ export const MovieDetails = ({ id, title }: MovieDetailsProps) => {
                 </li>
               ))}
             </ul>
-          </div>
+          </section>
         )}
         {reviews.length > 0 && (
-          <div className={css.reviews}>
+          <section className={css.reviews}>
             <ul>
               {reviews.map((r) => {
                 return (
@@ -61,9 +61,9 @@ export const MovieDetails = ({ id, title }: MovieDetailsProps) => {
                 );
               })}
             </ul>
-          </div>
+          </section>
         )}
-      </div>
+      </section>
     </>
   );
 };

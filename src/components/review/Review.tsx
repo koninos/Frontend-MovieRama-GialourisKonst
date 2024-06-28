@@ -9,7 +9,7 @@ interface ReviewProps {
 
 export const Review = ({ author, content, rating }: ReviewProps) => {
   return (
-    <div className={css.review}>
+    <section className={css.review}>
       <div className={css["user-rating"]}>
         <p className={css.author}>
           <span className={css.tag}>Review</span>
@@ -20,6 +20,6 @@ export const Review = ({ author, content, rating }: ReviewProps) => {
         </div>
       </div>
       <p className={css.content}>{content}</p>
-    </div>
+    </section>
   );
 };

@@ -13,18 +13,16 @@ export const MovieList = forwardRef(function MovieList(
   ref
 ) {
   return (
-    <div className={css.list}>
-      <ul>
-        {movies.map((m, idx) => (
-          <li key={m.id}>
-            <MovieItem
-              movie={m}
-              isLastMovieInPage={movies.length === idx + 1}
-              ref={ref}
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className={css.list}>
+      {movies.map((m, idx) => (
+        <li key={m.id}>
+          <MovieItem
+            movie={m}
+            isLastMovieInPage={movies.length === idx + 1}
+            ref={ref}
+          />
+        </li>
+      ))}
+    </ul>
   );
 });

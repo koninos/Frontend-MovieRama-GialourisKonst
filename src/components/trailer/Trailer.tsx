@@ -9,7 +9,7 @@ const Trailer = ({ videoId, title }: TrailerProps) => {
   const altTitle = `Trailer of ${title}`;
 
   return (
-    <div className={css["video-container"]}>
+    <section className={css["video-container"]}>
       <iframe
         width="100%"
         height="100%"
@@ -18,7 +18,7 @@ const Trailer = ({ videoId, title }: TrailerProps) => {
         allowFullScreen
         title={altTitle}
       />
-    </div>
+    </section>
   );
 };
 

@@ -1,15 +1,10 @@
 .list {
     flex: 2 2 5rem;
+    background: #ffffff 100%;
+    max-width: 1200px;
 
-    ul {
-        shadow: #000000 15%;
-        background: #ffffff 100%;
-        max-width: 1200px;
-
-        li {
-            list-style-type: none;
-            margin-bottom: 10px;
-        }
-
+    li {
+        list-style-type: none;
+        margin-bottom: 10px;
     }
 }

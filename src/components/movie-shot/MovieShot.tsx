@@ -9,7 +9,7 @@ interface MovieShotProps {
 
 export const MovieShot = ({ posterUrl, rating, title }: MovieShotProps) => {
   return (
-    <div className={css.container}>
+    <section className={css.container}>
       <img
         src={`https://image.tmdb.org/t/p/w185/${posterUrl}`}
         alt="Movie poster"
@@ -20,7 +20,7 @@ export const MovieShot = ({ posterUrl, rating, title }: MovieShotProps) => {
       />
 
       <Rating value={rating} />
-      <h5 className={css.title}>{title}</h5>
-    </div>
+      <p className={css.title}>{title}</p>
+    </section>
   );
 };
