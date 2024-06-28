@@ -4,6 +4,7 @@ import { GenresContext } from "./context/GenresContext";
 import { useInfiniteScroll } from "./hooks/useInfiniteScroll";
 import { useMovies } from "./hooks/useMovies";
 import { SearchBar } from "./shared/search-bar/SearchBar";
+import { Spinner } from "./shared/spinner/Spinner";
 
 export const App = () => {
   const { isLoading, error, genres, movies, setSearch, term, loadMoreMovies } =
@@ -24,7 +25,7 @@ export const App = () => {
 
       <main className={css.container}>
         <SearchBar onChange={setSearch} />
-        {isLoading && <p>Loading...</p>}
+        {isLoading && <Spinner />}
         <GenresContext.Provider value={genres}>
           <MovieList movies={movies} ref={lastMovieElemRef} />
         </GenresContext.Provider>
