@@ -30,6 +30,8 @@ export const MovieItem = forwardRef(function MovieItem(
         <img
           src={`${API.posterBaseUrl}${posterUrl}`}
           alt={`Movie poster ${title}`}
+          width="147px"
+          height="220px"
           onError={({ currentTarget }) => {
             currentTarget.onerror = null; // prevents looping
             currentTarget.src = "./assets/image-not-found.webp";
