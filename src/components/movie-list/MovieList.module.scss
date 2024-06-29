@@ -1,3 +1,5 @@
+@import '../../styles.scss';
+
 .list {
     flex: 2 2 5rem;
     background: #ffffff 100%;
@@ -5,6 +7,6 @@
 
     li {
         list-style-type: none;
-        margin-bottom: 10px;
+        margin-bottom: $spacing-s;
     }
 }

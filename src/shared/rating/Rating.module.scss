@@ -1,11 +1,13 @@
+@import '../../styles.scss';
+
 .rating {
     color: #0000008a;
-    margin: 5px;
+    margin: $spacing-2xs;
 
 
     &::before {
         content: "★";
-        color: #d7bd62;
-        margin-right: 0.25rem;
+        color: $highlight-color;
+        margin-right: $spacing-2xs;
     }
 }

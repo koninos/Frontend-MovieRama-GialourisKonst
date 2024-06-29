@@ -1,8 +1,10 @@
+@import '../../styles.scss';
+
 .movie-details {
     display: flex;
     flex-direction: column;
-    border: 1px solid #f5f5f5;
-    padding: 10px;
+    border: 1px solid $border-secondary-color;
+    padding: $spacing-s;
     justify-content: center;
 
     .trailer {
@@ -11,18 +13,20 @@
     }
 
     .similar-movies {
+        margin: $spacing-xl;
+
         ul {
-            padding: 0;
+            padding: $spacing-none;
             display: flex;
-            justify-content: space-evenly;
+            justify-content: space-between;
         }
     }
 
     .reviews {
-        margin: 2rem;
+        margin: $spacing-xl;
 
         ul {
-            padding: 0;
+            padding: $spacing-none;
         }
     }
 }

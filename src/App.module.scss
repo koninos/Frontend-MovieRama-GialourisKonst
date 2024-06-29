@@ -1,9 +1,12 @@
+@import './styles.scss';
+
 .app-shell {
   min-height: 100vh;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: $text-main-color;
 
   .container {
     display: flex;

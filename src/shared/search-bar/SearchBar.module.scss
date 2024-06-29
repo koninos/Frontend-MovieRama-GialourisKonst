@@ -1,12 +1,13 @@
+@import '../../styles.scss';
+
 .search {
     width: 300px;
     align-self: center;
     display: block;
-    height: calc(1.5em + .75rem + 2px);
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    color: #495057;
+    height: 2rem;
+    padding: $spacing-xs $spacing-s;
+    color: $text-main-color;
     background-color: #fff;
-    border: 1px solid #ced4da;
+    border: 1px solid $border-color;
     border-radius: .25rem;
 }

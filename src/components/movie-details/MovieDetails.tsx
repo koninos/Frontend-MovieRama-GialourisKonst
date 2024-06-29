@@ -33,7 +33,7 @@ export const MovieDetails = ({ id, title }: MovieDetailsProps) => {
           <section className={css["similar-movies"]}>
             <h3>Similar movies</h3>
             <ul>
-              {/* //TODO Display just first 5 */}
+              {/* Display just first 5 */}
               {similarMovies.slice(0, 5).map((m) => (
                 <li key={m.id}>
                   <MovieShot

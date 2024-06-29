@@ -1,3 +1,5 @@
+@import '../../styles.scss';
+
 .container {
     display: flex;
     flex-direction: column;
@@ -5,13 +7,13 @@
     height: 350px;
     border-radius: 0.75rem;
     box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
-    padding: 15px 0;
+    padding: $spacing-m $spacing-none;
 
     .title {
-        margin: 5px 15px;
+        margin: $spacing-xs $spacing-m;
         font-size: 0.8rem;
-        margin-inline-start: 0px;
-        margin-inline-end: 0px;
+        margin-inline-start: $spacing-none;
+        margin-inline-end: $spacing-none;
         font-weight: bold;
     }
 }
