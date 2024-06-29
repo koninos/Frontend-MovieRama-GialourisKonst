@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# MovieRama
+
+Discover the movies playing now in theaters or directly search for your favorite ones, with MovieRama.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
