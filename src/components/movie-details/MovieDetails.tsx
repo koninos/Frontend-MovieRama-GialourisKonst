@@ -22,7 +22,7 @@ export const MovieDetails = ({ id, title }: MovieDetailsProps) => {
 
   return (
     <>
-      <section className={css["movie-details"]}>
+      <section className={css["movie-details"]} data-testid="movie-details">
         {!contentLoaded && <Spinner />}
         {trailerKey && (
           <section className={css.trailer}>

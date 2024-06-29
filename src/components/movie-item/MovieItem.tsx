@@ -16,13 +16,14 @@ export const MovieItem = forwardRef(function MovieItem(
   { movie, isLastMovieInPage }: Readonly<MovieItemProps>,
   ref: any
 ) {
-  const { title, releaseDate, genre, rating, posterUrl, overview, id } = movie;
+  const { title, releaseYear, genre, rating, posterUrl, overview, id } = movie;
 
   const [showDetails, toggleShowDetails] = useToggle(false);
 
   return (
     <>
       <section
+        data-testid="movie-item"
         className={css["movie-item"]}
         onClick={toggleShowDetails}
         ref={isLastMovieInPage ? ref : null}
@@ -42,7 +43,7 @@ export const MovieItem = forwardRef(function MovieItem(
         <article className={css.info}>
           <h3>{title}</h3>
           <time className={css.content}>
-            {isNaN(releaseDate) ? "" : releaseDate}
+            {isNaN(releaseYear) ? "" : releaseYear}
           </time>
           <p className={css.content}>{genre}</p>
           <Rating value={rating} />

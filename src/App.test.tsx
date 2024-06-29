@@ -2,8 +2,11 @@ import { render, screen } from "@testing-library/react";
 
 import { App } from "./App";
 
-test("renders title", () => {
-  render(<App />);
-  const linkElement = screen.getByText(/Playing now in theaters/i);
-  expect(linkElement).toBeInTheDocument();
+describe("App", () => {
+  test("should render its title", () => {
+    render(<App />);
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
+      "MovieRama"
+    );
+  });
 });

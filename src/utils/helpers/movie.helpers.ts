@@ -32,7 +32,7 @@ export const mapMoviesToViewModel = (
       id,
       title,
       overview,
-      releaseDate: new Date(release_date).getFullYear(),
+      releaseYear: new Date(release_date).getFullYear(),
       genre: getGenresByIds(genres, genre_ids),
       rating,
       posterUrl,
