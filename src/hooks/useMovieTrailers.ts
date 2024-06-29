@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 
+import { movieDbRequestInterceptor } from "../interceptors/movieDb.interceptor";
 import { VideosApiResponse } from "../models/movieResponse.models";
-import { API_KEY, apiBaseUrl, GET_API_OPTIONS } from "../utils/API";
+import { apiBaseUrl } from "../utils/API";
 
 export const useMovieTrailers = (movieId: number) => {
   const [trailerKey, setTrailerKey] = useState<string>("");
 
   useEffect(() => {
-    const videoApi = `${apiBaseUrl}/movie/${movieId}/videos?api_key=${API_KEY}`;
+    const videoApi = `${apiBaseUrl}/movie/${movieId}/videos`;
 
-    fetch(videoApi, GET_API_OPTIONS)
+    movieDbRequestInterceptor(videoApi)
       .then((response) => response.json())
       .then((response: VideosApiResponse) => {
         const trailers = response.results.filter(

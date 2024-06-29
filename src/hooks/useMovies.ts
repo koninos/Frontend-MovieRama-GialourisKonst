@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 
+import { movieDbRequestInterceptor } from "../interceptors/movieDb.interceptor";
 import { Genre, Movie, Search } from "../models/movie.models";
 import {
   GenreResponse,
   MoviesApiResponse,
 } from "../models/movieResponse.models";
-import { API, API_KEY, GET_API_OPTIONS } from "../utils/API";
+import { API } from "../utils/API";
 import {
   createMapOfGenres,
   mapMoviesToViewModel,
@@ -33,8 +34,8 @@ export const useMovies = () => {
           : `${API.searchMovie}?query=${debouncedSearch}&page=${search.page}`;
 
         const responses = await Promise.all([
-          fetch(`${API.genre}?api_key=${API_KEY}`),
-          fetch(moviesApiUrl, GET_API_OPTIONS),
+          movieDbRequestInterceptor(`${API.genre}`),
+          movieDbRequestInterceptor(moviesApiUrl),
         ]);
 
         const { genres }: { genres: GenreResponse[] } =
